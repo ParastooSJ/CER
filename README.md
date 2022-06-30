@@ -8,7 +8,7 @@
 #### To run the code, place the downloaded file in data folder and run the following commands:
 ```
 cd src\data\
-python split_data.py
+bash split.sh
 cd ..
 bash run.sh
 
