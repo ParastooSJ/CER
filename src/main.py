@@ -38,15 +38,15 @@ class CreateCer():
         self.device = device
         self.cache_dir = cache_dir
 
-        self.train_dir = "../new_data/"+dataset+"/"+dataset+"_fold_"+category+"/train.json"
-        self.test_dir = "../new_data/"+dataset+"/"+dataset+"_fold_"+category+"/test.json"
-        self.sampled_train_dir = "../new_data/"+dataset+"/"+dataset+"_fold_"+category+"/sampled_train.json"
-        self.scored_train_dir = "../new_data/"+dataset+"/"+dataset+"_fold_"+category+"/scored_train.json"
-        self.scored_test_dir = "../new_data/"+dataset+"/"+dataset+"_fold_"+category+"/scored_test.json"
-        self.final_dir = "../new_data/"+dataset+"/"+dataset+"_fold_"+category+"/"+model_type+"_final.txt"
+        self.train_dir = "../data/"+dataset+"/"+dataset+"_fold_"+category+"/train.json"
+        self.test_dir = "../data/"+dataset+"/"+dataset+"_fold_"+category+"/test.json"
+        self.sampled_train_dir = "../data/"+dataset+"/"+dataset+"_fold_"+category+"/sampled_train.json"
+        self.scored_train_dir = "../data/"+dataset+"/"+dataset+"_fold_"+category+"/scored_train.json"
+        self.scored_test_dir = "../data/"+dataset+"/"+dataset+"_fold_"+category+"/scored_test.json"
+        self.final_dir = "../data/"+dataset+"/"+dataset+"_fold_"+category+"/"+model_type+"_final.txt"
 
-        self.CRmodel_dir =  "../new_model/"+dataset+"/"+dataset+"_fold_"+category+"/CR.pth"
-        self.CERmodel_dir =  "../new_model/"+dataset+"/"+dataset+"_fold_"+category+"/"+model_type+".pth"
+        self.CRmodel_dir =  "../model/"+dataset+"/"+dataset+"_fold_"+category+"/CR.pth"
+        self.CERmodel_dir =  "../model/"+dataset+"/"+dataset+"_fold_"+category+"/"+model_type+".pth"
 
         self.CR_model = CR.from_pretrained('bert-base-uncased',cache_dir=cache_dir).to(device)
         if model_type == "CERENTS": 
