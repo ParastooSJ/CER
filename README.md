@@ -12,7 +12,7 @@ git clone https://github.com/ParastooSJ/CER.git
 cd CER
 ```
 2) Install all the required packages in requirements.txt.
-3) To run the code using the pre-trained models, download the models from here and place them in their respective subfolders in model folder, otherwise it would train the models from the scratch.
+3) To run the code using the pre-trained models, download the models from [here]() and place them in their respective subfolders in model folder, otherwise it would train the models from the scratch.
 4)Run the following code to generate the results.
 ```
 cd src\
