@@ -17,8 +17,6 @@ cd CER
 ```
 cd src\
 bash run_cer.sh
-bash run_cerdis.sh
-bash run_cerents.sh
 ```
 
 ## Citation
