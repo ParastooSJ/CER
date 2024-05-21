@@ -16,7 +16,7 @@ cd CER
 4)Run the following code to generate the results.
 ```
 cd src\
-bash run_cer.sh
+bash run.sh
 ```
 
 ## Citation
