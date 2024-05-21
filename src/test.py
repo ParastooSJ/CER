@@ -5,7 +5,8 @@ import json
 from tqdm.auto import tqdm
 import logging
 from Loader import *
-import progress_bar
+from fastprogress import master_bar, progress_bar
+#import progress_bar
 
 def get_score(model,test_dataloader,model_type,device):
     
@@ -30,6 +31,8 @@ def get_score(model,test_dataloader,model_type,device):
                 outputs = model(input_ids, attention_mask=input_mask,output_ids=output_ids,output_attention_mask=output_mask,label=label)
 
         outputs = outputs.detach().cpu().numpy()
+        print('-------')
+        print(outputs)
         if counter==0:
             all_outputs=torch.from_numpy(outputs)
             counter+=1
@@ -58,9 +61,11 @@ def test_score_step(model_type,model,test_dir,train_dir,output_test_dir,output_t
         for line in input_f[i]:
             data=json.loads(line)
             counter+=1
-
+            
             if len(data['candidates']) > 0:
+                
                 test_dataloader = test_data_loader(model_type,data,batch_size)
+                
         
                 scores = get_score(model,test_dataloader,model_type,device)
                 
@@ -69,7 +74,7 @@ def test_score_step(model_type,model,test_dir,train_dir,output_test_dir,output_t
                     data['candidates'][object]["prune_score"]=score.item()
                     lists.append((object,score.item()))
                 lists.sort(key=lambda s:s[1], reverse=True)
-                lists = lists[:100]
+                lists = lists[:1000]
                 keep_candidates = []
                 for l in lists:
                     keep_candidates.append(l[0])
@@ -85,27 +90,41 @@ def test_step(model_type,model,input_dir,output_dir,batch_size,device):
     
     test_f = open(input_dir,'r')
     scored_test_f = open(output_dir,'w')
-
+    
     model.eval()
     for line in test_f:
+        object_list = set()
         data=json.loads(line)
         question = data['question']
         indexx = data['index']
+        qrel = data["qrel"]
+        
         
         if len(data['candidates'])!=0:
-            print('heree')
             
-            test_dataloader = test_data_loader(model_type,data,batch_size)
-            scores = get_score(model,test_dataloader,model_type,device)
+           #try: 
+            #test_dataloader = test_data_loader(model_type,data,batch_size)
+            #scores = get_score(model,test_dataloader,model_type,device)
+
+           
+
             lists = []
-            scores = scores.cpu().detach().numpy()
-            for object,score in zip(data["candidates"].keys(),scores):
-                data['candidates'][object]["prune_score"]=score.item()
-                lists.append((object,score.item()))
+            for object in data["candidates"].keys():
+                lists.append((object,data['candidates'][object]["prune_score"]))
             lists.sort(key=lambda s:s[1], reverse=True)
-            lists = lists[:100]
+            lists = lists[:1000]
             r = 0
+            ind = data["index"].replace(" ","_")
+            
             for l in lists:
-                r += 1
-                scored_test_f.write(data["index"]+"\tQ0"+"\t"+"<dbpedia:"+l[0].replace(" ","_")+">"+"\t"+str(r)+"\t"+str(l[1])+"\tCER"+"\n")
+                if l[0].replace(" ","_").lower() not in object_list:
+                    
+                   
+                        scored_test_f.write(ind.lower()+"\tQ0"+"\t"+l[0].replace(" ","_").lower()+"\t"+str(r)+"\t"+str(l[1])+"\tCER"+"\n")
+                        object_list.add(l[0].replace(" ","_").lower())
+                        r += 1
+
+           #except:
+            print('hree')
+
     scored_test_f.close()

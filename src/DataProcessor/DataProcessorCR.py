@@ -35,8 +35,9 @@ class DataProcessorCR:
         for _,value in df_train.iterrows():
             question = value['question'][:1000].strip()
             for object in value['candidates'].keys():
+                
                 relation_object_score = value['candidates'][object]["relation_object_score"]
-                object_score = value['candidates'][object]["object_score"]
+                #object_score = value['candidates'][object]["object_score"]
                 for subject in value['candidates'][object]["subject"]:
                     relation  = value['candidates'][object]["subject"][subject][0]
                     self.question_train.append(question)
@@ -54,11 +55,13 @@ class DataProcessorCR:
         relation_test=[]
         object_test=[]
         score_test=[]
-        try:
+        #try:
+        if True:
             question = df_test['question'][:1000].strip()
             for object in df_test['candidates'].keys():
-                relation_object_score = df_test['candidates'][object]["relation_object_score"]
-                object_score = df_test['candidates'][object]["object_score"]
+                
+                relation_object_score = 0 #df_test['candidates'][object]["relation_object_score"]
+                #object_score = df_test['candidates'][object]["object_score"]
                 for subject in df_test['candidates'][object]["subject"]:
                     relation  = df_test['candidates'][object]["subject"][subject][0]
                     question_test.append(question)
@@ -68,7 +71,7 @@ class DataProcessorCR:
                     score_test.append(relation_object_score)
             
             score_test=(score_test-np.min(score_test))/(np.max(score_test)-np.min(score_test))
-        except:
+        #except:
             print("error")
         return self._create_examples(question_test,relation_test,object_test,score_test)
 

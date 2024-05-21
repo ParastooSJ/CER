@@ -9,7 +9,6 @@ from pytorch_pretrained_bert.modeling import BertPreTrainedModel, BertConfig
 
 from pytorch_pretrained_bert.optimization import BertAdam, WarmupLinearSchedule, SCHEDULES
 import random
-from fastprogress import master_bar, progress_bar
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.metrics import mean_squared_error, r2_score,mean_absolute_percentage_error
 from sentence_transformers import SentenceTransformer, util
@@ -26,6 +25,7 @@ from Model.CR import *
 from Model.CERCONTEXT import *
 from Model.CERENTS import *
 from RandomSelector import *
+from fastprogress import master_bar, progress_bar
 
 
 
@@ -38,15 +38,15 @@ class CreateCer():
         self.device = device
         self.cache_dir = cache_dir
 
-        self.train_dir = "../data/"+dataset+"/"+dataset+"_fold_"+category+"/train.json"
-        self.test_dir = "../data/"+dataset+"/"+dataset+"_fold_"+category+"/test.json"
-        self.sampled_train_dir = "../data/"+dataset+"/"+dataset+"_fold_"+category+"/sampled_train.json"
-        self.scored_train_dir = "../data/"+dataset+"/"+dataset+"_fold_"+category+"/scored_train.json"
-        self.scored_test_dir = "../data/"+dataset+"/"+dataset+"_fold_"+category+"/scored_test.json"
-        self.final_dir = "../data/"+dataset+"/"+dataset+"_fold_"+category+"/"+model_type+"_final.txt"
+        self.train_dir = "../new_data/"+dataset+"/fold_"+category+"/train.json"
+        self.test_dir = "../new_data/"+dataset+"/fold_"+category+"/test.json"
+        self.sampled_train_dir = "../new_data/"+dataset+"/fold_"+category+"/sampled_train.json"
+        self.scored_train_dir = "../new_data/"+dataset+"/fold_"+category+"/scored_train.json"
+        self.scored_test_dir = "../new_data/"+dataset+"/fold_"+category+"/scored_test.json"
+        self.final_dir = "../new_data/"+dataset+"/fold_"+category+"/"+model_type+"_final.txt"
 
-        self.CRmodel_dir =  "../new_model/"+dataset+"/"+dataset+"_fold_"+category+"/CR.pth"
-        self.CERmodel_dir =  "../new_model/"+dataset+"/"+dataset+"_fold_"+category+"/"+model_type+".pth"
+        self.CRmodel_dir =  "../new_model/"+dataset+"/fold_"+category+"/CR.pth"
+        self.CERmodel_dir =  "../new_model/"+dataset+"/fold_"+category+"/"+model_type+".pth"
 
         self.CR_model = CR.from_pretrained('bert-base-uncased',cache_dir=cache_dir).to(device)
         if model_type == "CERENTS": 
@@ -75,13 +75,8 @@ class CreateCer():
                 output_test_dir=self.scored_test_dir,output_train_dir=self.scored_train_dir,batch_size=self.test_batch_size,device=self.device)
         
 
-    def train_CER_model(self):
-        if os.path.isfile(self.CERmodel_dir)==False:
-            train_step(model_type=self.model_type,model=self.CER_model,model_dir=self.CERmodel_dir,train_dir=self.scored_train_dir,batch_size=self.train_batch_size,device=self.device)
-
     def test_CER_model(self):
         test_step(model_type=self.model_type,model=self.CR_model,input_dir=self.scored_test_dir,output_dir=self.final_dir,batch_size=self.test_batch_size,device=self.device)
-
 
 
 

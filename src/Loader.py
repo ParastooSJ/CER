@@ -72,9 +72,11 @@ def test_data_loader(model_type,data,batch_size):
     tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
     MAX_SEQ_LENGTH = 100
     if model_type == "CR":
+        
         test_examples = cr.DataProcessorCR().get_test_examples(data)
+        
         test_features = cr.convert_examples_to_features_cr(test_examples, MAX_SEQ_LENGTH, tokenizer)
-
+        
         all_input_ids = torch.tensor([f.input_ids for f in test_features], dtype=torch.long)
         all_input_mask = torch.tensor([f.input_mask for f in test_features], dtype=torch.long)
         all_segment_ids = torch.tensor([f.segment_ids for f in test_features], dtype=torch.long)

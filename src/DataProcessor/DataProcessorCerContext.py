@@ -44,13 +44,14 @@ class DataProcessorCerContext:
 
                 rank = int(value['candidates'][object]["rank"])
                 prune_score = value['candidates'][object]["prune_score"]
-                relation_object_score = value['candidates'][object]["relation_object_score"]
+                
+                #relation_object_score = value['candidates'][object]["relation_object_score"]
 
                 for subject in value['candidates'][object]["subject"]:
                     relation = value['candidates'][object]["subject"][subject][0]
                     if int(rank)>=1:
                         pos_answer.append('centity '+object+' sentence '+relation+' qentity '+subject)
-                        pos_rank.append(relation_object_score)
+                        pos_rank.append(prune_score)#relation_object_score)
                     
             if len(pos_answer)>0 :
                 i = 0
@@ -58,7 +59,7 @@ class DataProcessorCerContext:
                     for object in value['candidates']:
                         rank = int(value['candidates'][object]["rank"])
                         prune_score = value['candidates'][object]["prune_score"]
-                        relation_object_score = value['candidates'][object]["relation_object_score"]
+                        #relation_object_score = value['candidates'][object]["relation_object_score"]
 
                         for subject in value['candidates'][object]["subject"]:
                             relation = value['candidates'][object]["subject"][subject][0]
@@ -66,7 +67,7 @@ class DataProcessorCerContext:
                                 self.question_train.append(value['question'])
                                 self.answer_neg_train.append('centity '+object+' sentence '+relation+' qentity '+subject)
                                 self.answer_pos_train.append(pos)
-                                self.label_neg_train.append(relation_object_score)
+                                self.label_neg_train.append(prune_score)#relation_object_score)
                                 self.label_pos_train.append(pos_rank[i])
                     i += 1
 
@@ -81,7 +82,7 @@ class DataProcessorCerContext:
         for object in data['candidates']:
             rank = int(data['candidates'][object]["rank"])
             prune_score = data['candidates'][object]["prune_score"]
-            relation_object_score = data['candidates'][object]["relation_object_score"]
+            #relation_object_score = data['candidates'][object]["relation_object_score"]
 
             for subject in data['candidates'][object]["subject"]:
                 relation = data['candidates'][object]["subject"][subject][0]

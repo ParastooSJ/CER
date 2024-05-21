@@ -29,9 +29,9 @@ class DataProcessorCerDis:
 
     
 
-    def __init__(self):
+    def __init__(self,):
         
-        self.glossery = glossery
+        self.glossery = []
         self.question_train=[]
         self.answer_pos_train=[]
         self.answer_neg_train=[]
@@ -70,7 +70,8 @@ class DataProcessorCerDis:
                 for subject in value['candidates'][object]["subject"]:
                     relation = value['candidates'][object]["subject"][subject][0]
                     subject_abstract = self.get_abstract(subject)
-                    if rank>=1:
+                    
+                    if int(rank)>0:
                         pos_answer.append('centity '+object_abstract+' sentence '+relation+' qentity '+subject_abstract)
                         pos_rank.append(prune_score)
                     
