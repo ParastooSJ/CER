@@ -97,7 +97,6 @@ def test_step(model_type,model,input_dir,output_dir,batch_size,device):
         data=json.loads(line)
         question = data['question']
         indexx = data['index']
-        qrel = data["qrel"]
         
         
         if len(data['candidates'])!=0:
