@@ -22,11 +22,12 @@ bash run.sh
 ## Citation
 #### If you find our code and data useful, please cite our paper.
 ```
-@inproceedings{jafarzadeh2022learning,
-  title={Learning to Rank Knowledge Subgraph Nodes for Entity Retrieval},
+@article{jafarzadeh2024learning,
+  title={Learning contextual representations for entity retrieval},
   author={Jafarzadeh, Parastoo and Amirmahani, Zahra and Ensan, Faezeh},
-  booktitle={Proceedings of the 45th International ACM SIGIR Conference on Research and Development in Information Retrieval},
-  pages={2519--2523},
-  year={2022}
+  journal={Applied Intelligence},
+  pages={1--21},
+  year={2024},
+  publisher={Springer}
 }
 ```
