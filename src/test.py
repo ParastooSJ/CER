@@ -101,10 +101,6 @@ def test_step(model_type,model,input_dir,output_dir,batch_size,device):
         
         if len(data['candidates'])!=0:
             
-           #try: 
-            #test_dataloader = test_data_loader(model_type,data,batch_size)
-            #scores = get_score(model,test_dataloader,model_type,device)
-
            
 
             lists = []
@@ -123,7 +119,7 @@ def test_step(model_type,model,input_dir,output_dir,batch_size,device):
                         object_list.add(l[0].replace(" ","_").lower())
                         r += 1
 
-           #except:
+        
             print('hree')
 
     scored_test_f.close()
