@@ -80,7 +80,7 @@ class CreateCer():
             train_step(model_type=self.model_type,model=self.CER_model,model_dir=self.CERmodel_dir,train_dir=self.scored_train_dir,batch_size=self.train_batch_size,device=self.device)
 
     def test_CER_model(self):
-        test_step(model_type=self.model_type,model=self.CR_model,input_dir=self.scored_test_dir,output_dir=self.final_dir,batch_size=self.test_batch_size,device=self.device)
+        test_step(model_type=self.model_type,model=self.CER_model,input_dir=self.scored_test_dir,output_dir=self.final_dir,batch_size=self.test_batch_size,device=self.device)
 
 
 
