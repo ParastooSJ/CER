@@ -3,7 +3,7 @@
 
 
 ## Code and DATA
-#### we have provided our code in src folder that can be used for producing the results. The extracted data from contextual Wikipedia knowledge graph for DBPedia-Entity v2 can be found in data folder. We have put our runs in Results folder.
+#### we have provided our code in src folder that can be used for producing the results. The extracted data from contextual Wikipedia knowledge graph for DBPedia-Entity v2 can be found in data folder. We have put our runs in Results folder. The data for CAR dataset can be downloaded here [here](https://drive.google.com/file/d/1f-SRu2WpGZxGM_7y_3k4Gn1yFEHLtnY_/view?usp=share_link).
 
 #### To run the code, follow the instruction below.
 1) clone the git repository.
