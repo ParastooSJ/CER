@@ -101,11 +101,13 @@ def test_step(model_type,model,input_dir,output_dir,batch_size,device):
         
         if len(data['candidates'])!=0:
             
-           
+            test_dataloader = test_data_loader(model_type,data,batch_size)
+            scores = get_score(model,test_dataloader,model_type,device)
 
             lists = []
-            for object in data["candidates"].keys():
-                lists.append((object,data['candidates'][object]["prune_score"]))
+            for object,score in zip(data["candidates"].keys(),scores):
+                    data['candidates'][object]["prune_score"]=score.item()
+                    lists.append((object,data['candidates'][object]["prune_score"]))
             lists.sort(key=lambda s:s[1], reverse=True)
             lists = lists[:1000]
             r = 0
